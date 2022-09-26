@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Рундук</string>
-
+    <string name = "my_url">http://cldt.hopto.org/view.php</string>
+    <string name="download_start">Начинаю скачивание!</string>
+    <string name="download_process">Жди, скачиваю!</string>
+    <string name="download_finish">Скачано!</string>
 </resources>

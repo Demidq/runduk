@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         WebSettings sett = cd.getSettings();
         sett.setJavaScriptEnabled(true);
 
-        cd.loadUrl("http://cldt.hopto.org/view.php");
- /////////////////////
+        cd.loadUrl("@strings/my_url");
+        /* /////////////////// */
 
         cd.setWebChromeClient(new WebChromeClient()
         {
@@ -102,18 +101,18 @@ public class MainActivity extends AppCompatActivity {
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                 request.setTitle(URLUtil.guessFileName(url, contentDisposition, mimetype));
-                request.setDescription("Начинаю скачивание!");
+                request.setDescription("@strings/download_start");
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, URLUtil.guessFileName(url, contentDisposition, mimetype));
                 DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                 dm.enqueue(request);
-                Toast.makeText(getApplicationContext(), "Жди, скачиваю", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "@strings/download_process", Toast.LENGTH_SHORT).show();
                 registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
             }
             BroadcastReceiver onComplete = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    Toast.makeText(getApplicationContext(), "Скачано!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "@strings/download_finish", Toast.LENGTH_SHORT).show();
                 }
             };
         });
