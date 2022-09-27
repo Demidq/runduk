@@ -33,17 +33,15 @@ public class MainActivity extends AppCompatActivity {
     private final static int FILECHOOSER_RESULTCODE = 1;
     public Button but;
 
-    @SuppressLint("SetJavaScriptEnabled")
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+
+
+        @SuppressLint("SetJavaScriptEnabled")
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         checkDownloadPermission();
-
-
-
-
 
         WebView cd = findViewById(R.id.WebView);
         WebSettings sett = cd.getSettings();
@@ -52,13 +50,12 @@ public class MainActivity extends AppCompatActivity {
         cd.loadUrl("@strings/my_url");
         /* /////////////////// */
 
-        cd.setWebChromeClient(new WebChromeClient()
-        {
+                // Переопределяю настройки для загрузок на сервер
+            cd.setWebChromeClient(new WebChromeClient()
+             {
 
 
-
-
-            // For Lollipop 5.0+ Devices
+            // For 5.0+ Devices//вывод выбора файла
             public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams)
             {
                 if (uploadMessage != null) {
@@ -66,22 +63,23 @@ public class MainActivity extends AppCompatActivity {
                     uploadMessage = null;
                 }
 
-                uploadMessage = filePathCallback;
+                    uploadMessage = filePathCallback;
+                    Intent intent = null;
 
-                Intent intent = null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     intent = fileChooserParams.createIntent();
                 }
-                try
-                {
+                    try
+                    {
                     startActivityForResult(intent, REQUEST_SELECT_FILE);
-                } catch (ActivityNotFoundException e)
-                {
+                    } catch (ActivityNotFoundException e)
+                        {
                     uploadMessage = null;
                     return false;
-                }
+                        }
                 return true;
             }
+
 
 
 
@@ -95,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 ////////////////////////////
-
+//процесс скачивания
         cd.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
@@ -118,7 +116,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+// окончание on_create()
 
+
+
+//функции
 
 /////////ЗАПРОСИТЬ РАЗРЕШЕНИЕ НА ЗАПИСЬ В МОБИЛКУ
     private void checkDownloadPermission() {
@@ -128,9 +130,12 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
         }
     }
-//////////////////загрузить файл
 
 
+
+
+
+//////////////////загрузить файл на сервер
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -151,36 +156,21 @@ public class MainActivity extends AppCompatActivity {
             mUploadMessage = null;
         }
 
-
     }
 
 
+
+
+
+
+    //webview, загрузка url
     private class xWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
         }
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -9,6 +9,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">Рундук</string>
+    <string name="download_finish">Скачано!</string>
+    <string name="download_process">Жди, скачиваю!</string>
+    <string name="download_start">Начинаю скачивание!</string>
+    <string name="my_url">http://cldt.hopto.org/view.php</string>
     <style name="Theme.Cd" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         
         <item name="colorPrimary">@color/purple_500</item>

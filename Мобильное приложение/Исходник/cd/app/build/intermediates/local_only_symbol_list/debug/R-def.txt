@@ -16,6 +16,10 @@ mipmap ic_launcher
 mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 string app_name
+string download_finish
+string download_process
+string download_start
+string my_url
 style Theme.Cd
 xml backup_rules
 xml data_extraction_rules
